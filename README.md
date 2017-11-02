@@ -134,7 +134,7 @@ rachel.delete(path, options)
  - `options` - `Object`. _Optional_. Request options.
 
 <div align=center>
-  <p>[MIT License](LICENSE)</p>
-  <p>Created with ❤️ by [Rubens Mariuzzo](https://github.com/rmariuzzo)</p>
+  <p>MIT License</p>
+  <p>Created with ❤️ by <a href="https://github.com/rmariuzzo">Rubens Mariuzzo</a></p>
   <small>Amelie <strong>Rachel</strong> – my first born daughter</small>
 </div>
