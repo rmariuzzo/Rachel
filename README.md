@@ -133,6 +133,10 @@ rachel.delete(path, options)
  - `id` - `Object`. **Required**. The resource identifier.
  - `options` - `Object`. _Optional_. Request options.
 
+### Development
+
+ - `yarn build` - Build production assets.
+
 <div align=center>
   <p>MIT License</p>
   <p>Created with ❤️ by <a href="https://github.com/rmariuzzo">Rubens Mariuzzo</a></p>
