@@ -1,4 +1,8 @@
-
+/*!
+ * Rachel - RESTful API Client helper.
+ * Copyright(c) 2017 Rubens Mariuzzo
+ * MIT Licensed
+ */
 
 /**
  * Export modules.
@@ -129,6 +133,11 @@ function request(uri, options) {
     uri = formatUri(uri, options.data)
   }
 
+  // Add prefix to URI path.
+  if (options.prefix) {
+    uri = prefix + uri
+  }
+
   // Return cached response if cache was enabled. This can be overriden if the user force it.
   if (options.cache && request.cache[uri] && !options.force) {
     return Promise.resolve(request.cache[uri])
@@ -177,6 +186,14 @@ function request(uri, options) {
       return data
     })
 }
+
+/**
+ * Format an URI path that contains placeholder.
+ * A placeholder has the following format: :key1, :key2 and so on.
+ * @param {String} uri The URI path.
+ * @param {Object} data The data to use when replacing placeholders.
+ * @return {String}
+ */
 
 function formatUri(uri, data) {
   return uri.replace(/:(\w+)/g, (colon, match) => data[match])
