@@ -9,7 +9,7 @@
  * @public
  */
 
-export {
+export default {
   createApi,
   list,
   get,
@@ -45,7 +45,13 @@ function list(path, options) {
     throw new Error('the path must be a string')
   }
 
-  return () => request(path, { ...options, method: 'GET' })
+  const defaults = options
+
+  return (options) => request(path, {
+    ...defaults,
+    ...options,
+    method: 'GET'
+  })
 }
 
 /**
@@ -59,9 +65,14 @@ function get(path, options) {
     throw new Error('the path must be a string')
   }
 
-  return (id, options) => {
-    request(path, { ...options, method: 'GET', id })
-  }
+  const defaults = options
+
+  return (id, options) => request(path, {
+    ...defaults,
+    ...options,
+    method: 'GET',
+    id
+  })
 }
 
 /**
@@ -75,9 +86,14 @@ function post(path, options) {
     throw new Error('the path must be a string')
   }
 
-  return (data, options) => {
-    request(path, { ...options, method: 'POST', data })
-  }
+  const defaults = options
+
+  return (data, options) => request(path, {
+    ...defaults,
+    ...options,
+    method: 'POST',
+    data
+  })
 }
 
 /**
@@ -91,9 +107,15 @@ function put(path, options) {
     throw new Error('the path must be a string')
   }
 
-  return (id, data, options) => {
-    request(path, { ...options, method: 'PUT', id, data })
-  }
+  const defaults = options
+
+  return (id, data, options) => request(path, {
+    ...defaults,
+    ...options,
+    method: 'PUT',
+    id,
+    data
+  })
 }
 
 /**
@@ -107,9 +129,14 @@ function del(path, options) {
     throw new Error('the path must be a string')
   }
 
-  return (id, options) => {
-    request(path, { ...options, method: 'DELETE', id })
-  }
+  const defaults = options
+
+  return (id, options) => request(path, {
+    ...defaults,
+    ...options,
+    method: 'DELETE',
+    id
+  })
 }
 
 /**
@@ -135,7 +162,7 @@ function request(uri, options) {
 
   // Add prefix to URI path.
   if (options.prefix) {
-    uri = prefix + uri
+    uri = options.prefix + uri
   }
 
   // Return cached response if cache was enabled. This can be overriden if the user force it.
@@ -162,7 +189,7 @@ function request(uri, options) {
   }
 
   // Do the request.
-  return fetcher[uri] = fetch(uri, fetchOptions)
+  return request.queue[uri] = fetch(uri, fetchOptions)
     // Validate HTTP response
     .then((response) => {
       if (response.ok) {
