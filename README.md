@@ -18,8 +18,8 @@
 
 ## Features
 
- - **Under 4KB** (1.12KB gziped).
- - 2 almost-dependency: `fetch` and `Promise`.
+ - **Under 4KB!** (1.16KB gziped).
+ - **2 dependencies:**: `fetch` and `Promise`.
  - **Builds:** CommonJS, ES and UMD.
 
 ## Example

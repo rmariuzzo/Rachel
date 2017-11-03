@@ -165,13 +165,25 @@ function request(uri, options) {
     uri = options.prefix + uri
   }
 
-  // Return cached response if cache was enabled. This can be overriden if the user force it.
-  if (options.cache && request.cache[uri] && !options.force) {
-    return Promise.resolve(request.cache[uri])
+  const cacheKey = `${options.method}: ${uri}`
+
+  // Return cached response if cache is enabled. This can be overriden if the user force it.
+  if (options.cache) {
+    if (request.cache[cacheKey]) {
+      return request.cache[cacheKey].promise
+    } else {
+      // Create a promise that will be resolved later.
+      request.cache[cacheKey] = {}
+      request.cache[cacheKey].promise = new Promise((resolve) => {
+        request.cache[cacheKey].resolve = resolve
+      })
+    }
+  } else {
+    delete request.cache[cacheKey]
   }
 
-  // Return the current request if multiple are not allowed.
-  if (options.multiple === false && request.queue[uri]) {
+  // Return the current request if queue is enabled.
+  if (options.queue && request.queue[uri]) {
     return request.queue[uri]
   }
 
@@ -204,13 +216,27 @@ function request(uri, options) {
     .then((data) => {
       // Store date in cache if specified.
       if (options.cache) {
-        request.cache[uri] = data
+        request.cache[cacheKey].resolve(data)
       }
 
       // Remove data from queue.
       delete request.queue[uri]
 
       return data
+    })
+    .catch((error) => {
+      // Reject cache promise.
+      if (options.cache) {
+        request.cache[cacheKey].reject(error)
+        delete request.cache[cacheKey]
+      }
+
+      delete request.queue[uri]
+
+      // Propagate error.
+      if (!options.cache) {
+        throw Error(error)
+      }
     })
 }
 
