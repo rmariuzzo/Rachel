@@ -18,17 +18,18 @@
 
 ## Features
 
- - **Under 4KB!** (1.16KB gziped).
+ - **Under 4KB!** (1.17KB gziped).
  - **2 dependencies:**: `fetch` and `Promise`.
  - **Builds:** CommonJS, ES and UMD.
+ - **JSON** by default!
 
 ## Example
 
 ```js
 // api.js
-import rachel from 'rachel'
+import Rachel from 'rachel'
 
-const api = rachel.createApi(options)
+const api = Rachel.createApi(baseUrl, options)
 
 export default {
   users: {
