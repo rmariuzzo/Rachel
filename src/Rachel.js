@@ -159,6 +159,16 @@ request.queue = {}
 
 function request(uri, options) {
 
+  // Add prefix to URI path.
+  if (options.prefix) {
+    uri = options.prefix + uri
+  }
+
+  // Add base URL to URI path.
+  if (options.baseUrl) {
+    uri = options.baseUrl + uri
+  }
+
   // Format the URI path.
   if (options.id !== undefined) {
     uri = formatUri(uri, { id: options.id })
@@ -166,11 +176,6 @@ function request(uri, options) {
 
   if (options.data !== undefined) {
     uri = formatUri(uri, options.data)
-  }
-
-  // Add prefix to URI path.
-  if (options.prefix) {
-    uri = options.prefix + uri
   }
 
   const cacheKey = `${options.method}: ${uri}`
