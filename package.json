@@ -1,6 +1,6 @@
 {
   "name": "rachel",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "dist/rachel.js",
   "module": "dist/rachel.esm.js",
   "browser": "dist/rachel.umd.js",
