@@ -20,17 +20,25 @@ export default {
 
 /**
  * Create an API wrapper with options that will be transferred to all requests.
+ * @paarm {String} baseUrl The API base URL.
  * @param {Object} options Request options.
+ * @return {Object}
  */
 
-function createApi(options) {
-  const apiOptions = options
+function createApi(baseUrl, options) {
+
+  if (typeof baseUrl !== 'string') {
+    throw new Error('the base URL must be a string')
+  }
+
+  const defaults = { baseUrl, ...options }
+
   return {
-    list: (path, options) => list(path, { ...apiOptions, ...options }),
-    get: (path, options) => get(path, { ...apiOptions, ...options }),
-    post: (path, options) => post(path, { ...apiOptions, ...options }),
-    put: (path, options) => put(path, { ...apiOptions, ...options }),
-    del: (path, options) => del(path, { ...apiOptions, ...options }),
+    list: (path, options) => list(path, { ...defaults, ...options }),
+    get: (path, options) => get(path, { ...defaults, ...options }),
+    post: (path, options) => post(path, { ...defaults, ...options }),
+    put: (path, options) => put(path, { ...defaults, ...options }),
+    del: (path, options) => del(path, { ...defaults, ...options }),
   }
 }
 

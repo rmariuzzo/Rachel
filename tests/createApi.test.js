@@ -1,9 +1,13 @@
 import Rachel from '../src/Rachel'
 
-describe('Rachel.createApi(options)', () => {
+describe('Rachel.createApi(baseUrl, options)', () => {
+
+  it('should expect a base url', () => {
+    expect(() => Rachel.createApi()).toThrow()
+  })
 
   it('should create an api object', () => {
-    const api = Rachel.createApi()
+    const api = Rachel.createApi('test')
     expect(api).toBeDefined()
     expect(api).toHaveProperty('list')
     expect(api).toHaveProperty('get')
@@ -14,7 +18,7 @@ describe('Rachel.createApi(options)', () => {
 
   it('should transfer options down', () => {
     const requests = []
-    const api = Rachel.createApi({ prefix: '/test-prefix' })
+    const api = Rachel.createApi('test', { prefix: '/test-prefix' })
 
     const list = api.list('/test-resources')
     requests.push(list().then(({ uri }) => expect(uri).toBe('/test-prefix/test-resources')))

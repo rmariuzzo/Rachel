@@ -59,9 +59,9 @@ api.users.del(123)       // DELETE: /users/123
 Create an API wrapper with options.
 
 ```js
-rachel.createApi(options)
+rachel.createApi(baseUrl, options)
 ```
-
+ - `baseUrl` - `String`. **Required.** The base URL.
  - `options` - `Object`. _Optional_. [Request options](#request-options) that will be transfered to all methods (`list`, `get`, `post`, `put` and `del`).
    - `prefix` - `String`. The prefix to add to all API requests.
 
@@ -153,9 +153,11 @@ An URI path pattern is a `String` that contains placeholders. For example: '/use
 
 ### Request Options
 
+ - `baseUrl` - `String`. **Default: `null`**. The base URL.
  - `prefix` - `String`. **Default: `null`**. The prefix to add to all API requests.
  - `cache` - `Boolean`. **Default: `false`**. Indicate if the request should be cached.
  - `multiple` - `Boolean`. **Default: `true`**. Indicate if the request can be issued multiple times, if `false` all subsequent request will return the same promise.
+ - `extract` - `String`. **Default: `null`**. The field name of the value to extract from the JSON response.
 
 ## Development
 
