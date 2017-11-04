@@ -164,6 +164,12 @@ An URI path pattern is a `String` that contains placeholders. For example: '/use
 
  - `yarn build` - Build production assets.
 
+
+## Tests
+
+ - `yarn test` - Run all tests.
+ - `yarn test -- --watch` - Run all tests in watch mode.
+
 <div align=center>
   <p>MIT License</p>
   <p>Created with ❤️ by <a href="https://github.com/rmariuzzo">Rubens Mariuzzo</a></p>
