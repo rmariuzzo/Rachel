@@ -7,7 +7,7 @@ describe('Rachel.post', () => {
     post().then(({ options }) => expect(options.method).toBe('POST'))
   })
 
-  it('should prioritize a given identifier over options data', () => {
+  it('should accept a payload data as first argument', () => {
     const post = Rachel.post('/test')
     const data = { test: 123 }
     post(data).then(({ options }) => expect(options.body).toBe(JSON.stringify(data)))
